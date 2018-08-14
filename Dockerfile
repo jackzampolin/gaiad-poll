@@ -7,4 +7,4 @@ WORKDIR /root
 COPY poll.sh poll.sh
 
 # poll for 20 iterations, 5 seconds between polls and wait for block height of 10
-CMD ["./poll.sh", "20", "5", "10"]
+CMD ["./poll.sh", "20", "5", "10", "gaianode0"]

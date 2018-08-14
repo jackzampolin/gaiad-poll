@@ -4,6 +4,7 @@ CNT=0
 ITER=$1
 SLEEP=$2
 NUMBLOCKS=$3
+NODEADDR=$4
 
 if [ -z "$1" ]; then
   echo "Need to input number of iterations to run..."
@@ -20,8 +21,13 @@ if [ -z "$3" ]; then
   exit 1
 fi
 
+if [ -z "$4" ]; then
+  echo "Need to input node address to poll..."
+  exit 1
+fi
+
 while [ ${CNT} -lt $ITER ]; do
-    var=$(curl -s localhost:26657/status | jq -r '.result.sync_info.latest_block_height')
+    var=$(curl -s $NODEADDR:26657/status | jq -r '.result.sync_info.latest_block_height')
     echo "Number of Blocks: ${var}"
     if [ ! -z ${var} ] && [ ${var} -gt ${NUMBLOCKS} ]; then
       echo "Number of blocks reached, exiting success..."
